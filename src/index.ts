@@ -7,22 +7,26 @@
  */
 
 // Main library exports for programmatic usage
-export { TestRunner } from "./runner/TestRunner.js"
-export { blockRegistry } from "./blocks/index.js"
-export { Logger } from "./utils/logger.js"
+export {TestRunner} from "./runner/TestRunner.js"
+export {blockRegistry} from "./blocks/index.js"
+export {Logger} from "./utils/logger.js"
 
 // Export all types
 export type {
-  WorkflowStep,
-  Workflow,
-  WorkflowConfig,
-  CustomBlock,
-  StepResult,
-  TestResult,
-  TestRunnerOptions,
-  BlockParameters,
-  BlockFunction,
+	WorkflowStep,
+	Workflow,
+	WorkflowConfig,
+	CustomBlock,
+	StepResult,
+	TestResult,
+	TestRunnerOptions,
+	BlockParameters,
+	BlockFunction,
 } from "./types/index.js"
 
 // Utility functions for easy usage
-export { createTestRunner, runWorkflow } from "./runner/factory.js"
+export {createTestRunner, runWorkflow} from "./runner/factory.js"
+
+
+export {testBlocks} from "./definitions.js"
+export {blockCategories} from "./categories.js"
