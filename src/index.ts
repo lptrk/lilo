@@ -28,5 +28,12 @@ export type {
 export {createTestRunner, runWorkflow} from "./runner/factory.js"
 
 
-export {testBlocks} from "./definitions.js"
 export {blockCategories} from "./categories.js"
+export {
+	testBlocks,
+	getBlocksByCategory,
+	getAllCategories,
+	searchBlocks,
+	type TestBlockDefinition,
+	type TestBlockParameter,
+} from "./definitions.js"
