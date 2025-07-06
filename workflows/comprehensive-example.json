@@ -1,0 +1,369 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "workflows": {
+    "setup": {
+      "name": "Setup and Navigation",
+      "description": "Initial setup and navigation tests",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "/"
+          }
+        },
+        {
+          "block": "expectTitle",
+          "parameters": {
+            "title": "My App"
+          }
+        },
+        {
+          "block": "expectUrl",
+          "parameters": {
+            "pattern": "localhost:3000"
+          }
+        },
+        {
+          "block": "screenshot",
+          "parameters": {
+            "path": "screenshots/homepage.png"
+          }
+        }
+      ]
+    },
+    "form-interactions": {
+      "name": "Form Interactions",
+      "description": "Test various form interactions",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "/form"
+          }
+        },
+        {
+          "block": "fill",
+          "parameters": {
+            "selector": "input[name='username']",
+            "value": "testuser"
+          }
+        },
+        {
+          "block": "type",
+          "parameters": {
+            "selector": "input[name='email']",
+            "text": "test@example.com"
+          }
+        },
+        {
+          "block": "selectOption",
+          "parameters": {
+            "selector": "select[name='country']",
+            "value": "US"
+          }
+        },
+        {
+          "block": "check",
+          "parameters": {
+            "selector": "input[type='checkbox'][name='terms']"
+          }
+        },
+        {
+          "block": "expectChecked",
+          "parameters": {
+            "selector": "input[type='checkbox'][name='terms']"
+          }
+        },
+        {
+          "block": "uploadFile",
+          "parameters": {
+            "selector": "input[type='file']",
+            "filePath": "./test-files/sample.txt"
+          }
+        }
+      ]
+    },
+    "advanced-interactions": {
+      "name": "Advanced Interactions",
+      "description": "Test advanced user interactions",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "/advanced"
+          }
+        },
+        {
+          "block": "hover",
+          "parameters": {
+            "selector": ".hover-element"
+          }
+        },
+        {
+          "block": "doubleClick",
+          "parameters": {
+            "selector": ".double-click-target"
+          }
+        },
+        {
+          "block": "rightClick",
+          "parameters": {
+            "selector": ".context-menu-trigger"
+          }
+        },
+        {
+          "block": "dragAndDrop",
+          "parameters": {
+            "sourceSelector": ".draggable",
+            "targetSelector": ".drop-zone"
+          }
+        },
+        {
+          "block": "scrollTo",
+          "parameters": {
+            "selector": ".bottom-element"
+          }
+        }
+      ]
+    },
+    "assertions": {
+      "name": "Comprehensive Assertions",
+      "description": "Test all assertion types",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "/test-page"
+          }
+        },
+        {
+          "block": "expectVisible",
+          "parameters": {
+            "selector": ".visible-element"
+          }
+        },
+        {
+          "block": "expectHidden",
+          "parameters": {
+            "selector": ".hidden-element"
+          }
+        },
+        {
+          "block": "expectText",
+          "parameters": {
+            "selector": ".text-element",
+            "text": "Expected Text"
+          }
+        },
+        {
+          "block": "expectExactText",
+          "parameters": {
+            "selector": ".exact-text",
+            "text": "Exact Match"
+          }
+        },
+        {
+          "block": "expectValue",
+          "parameters": {
+            "selector": "input[name='test']",
+            "value": "test-value"
+          }
+        },
+        {
+          "block": "expectAttribute",
+          "parameters": {
+            "selector": ".test-element",
+            "attribute": "data-test",
+            "value": "test-attribute"
+          }
+        },
+        {
+          "block": "expectClass",
+          "parameters": {
+            "selector": ".styled-element",
+            "className": "active"
+          }
+        },
+        {
+          "block": "expectCount",
+          "parameters": {
+            "selector": ".list-item",
+            "count": 5
+          }
+        },
+        {
+          "block": "expectEnabled",
+          "parameters": {
+            "selector": "button[name='submit']"
+          }
+        },
+        {
+          "block": "expectDisabled",
+          "parameters": {
+            "selector": "button[name='disabled']"
+          }
+        }
+      ]
+    },
+    "storage-and-cookies": {
+      "name": "Storage and Cookie Tests",
+      "description": "Test localStorage, sessionStorage, and cookies",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "/storage-test"
+          }
+        },
+        {
+          "block": "setLocalStorage",
+          "parameters": {
+            "key": "testKey",
+            "value": "testValue"
+          }
+        },
+        {
+          "block": "getLocalStorage",
+          "parameters": {
+            "key": "testKey"
+          }
+        },
+        {
+          "block": "setSessionStorage",
+          "parameters": {
+            "key": "sessionKey",
+            "value": "sessionValue"
+          }
+        },
+        {
+          "block": "getSessionStorage",
+          "parameters": {
+            "key": "sessionKey"
+          }
+        },
+        {
+          "block": "setCookie",
+          "parameters": {
+            "name": "testCookie",
+            "value": "cookieValue",
+            "path": "/",
+            "secure": false
+          }
+        },
+        {
+          "block": "getCookies"
+        }
+      ]
+    },
+    "waiting-and-timing": {
+      "name": "Waiting and Timing Tests",
+      "description": "Test various waiting mechanisms",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "/async-content"
+          }
+        },
+        {
+          "block": "waitForSelector",
+          "parameters": {
+            "selector": ".loading-spinner",
+            "timeout": 5000,
+            "state": "visible"
+          }
+        },
+        {
+          "block": "waitForSelector",
+          "parameters": {
+            "selector": ".loading-spinner",
+            "timeout": 10000,
+            "state": "hidden"
+          }
+        },
+        {
+          "block": "waitForLoadState",
+          "parameters": {
+            "state": "networkidle",
+            "timeout": 30000
+          }
+        },
+        {
+          "block": "waitForResponse",
+          "parameters": {
+            "urlOrPredicate": "**/api/data",
+            "timeout": 15000
+          }
+        },
+        {
+          "block": "wait",
+          "parameters": {
+            "ms": 2000
+          }
+        }
+      ]
+    },
+    "main": {
+      "name": "Comprehensive Test Suite",
+      "description": "Complete test workflow with all features",
+      "workflow": [
+        {
+          "block": "callWorkflow",
+          "parameters": {
+            "workflowId": "setup"
+          }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": {
+            "workflowId": "form-interactions"
+          }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": {
+            "workflowId": "advanced-interactions"
+          }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": {
+            "workflowId": "assertions"
+          }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": {
+            "workflowId": "storage-and-cookies"
+          }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": {
+            "workflowId": "waiting-and-timing"
+          }
+        },
+        {
+          "block": "screenshot",
+          "parameters": {
+            "path": "screenshots/final-state.png",
+            "fullPage": true
+          }
+        }
+      ]
+    }
+  },
+  "mainWorkflow": "main",
+  "customBlocks": {
+    "loginWithCredentials": {
+      "name": "Login with Custom Credentials",
+      "description": "Custom login block with validation",
+      "code": "await page.fill('input[name=\"username\"]', parameters.username || 'defaultUser'); await page.fill('input[name=\"password\"]', parameters.password || 'defaultPass'); await page.click('button[type=\"submit\"]'); await page.waitForSelector('.dashboard', { timeout: 10000 }); console.log('✅ Login successful');"
+    },
+    "validateFormData": {
+      "name": "Validate Form Data",
+      "description": "Custom validation for form data",
+      "code": "const username = await page.inputValue('input[name=\"username\"]'); const email = await page.inputValue('input[name=\"email\"]'); if (!username || !email) { throw new Error('Form validation failed: missing required fields'); } console.log('✅ Form validation passed');"
+    }
+  }
+}

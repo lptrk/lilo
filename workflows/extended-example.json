@@ -1,0 +1,289 @@
+{
+  "baseUrl": "https://example.com",
+  "workflows": {
+    "multiTabTest": {
+      "name": "Multi-Tab Management Test",
+      "description": "Test tab operations",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/" }
+        },
+        {
+          "block": "openNewTab",
+          "parameters": { "url": "https://google.com" }
+        },
+        {
+          "block": "getTabCount"
+        },
+        {
+          "block": "switchToTab",
+          "parameters": { "index": 0 }
+        },
+        {
+          "block": "closeTab",
+          "parameters": { "index": 1 }
+        }
+      ]
+    },
+    "downloadTest": {
+      "name": "File Download Test",
+      "description": "Test file download functionality",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/download-page" }
+        },
+        {
+          "block": "downloadFile",
+          "parameters": {
+            "triggerSelector": "#download-button",
+            "savePath": "./downloads/test-file.pdf"
+          }
+        },
+        {
+          "block": "verifyDownload",
+          "parameters": {
+            "filename": "test-file.pdf",
+            "minSize": 1000
+          }
+        }
+      ]
+    },
+    "mobileTest": {
+      "name": "Mobile Gestures Test",
+      "description": "Test touch gestures",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/mobile-app" }
+        },
+        {
+          "block": "tap",
+          "parameters": { "selector": ".mobile-button" }
+        },
+        {
+          "block": "swipe",
+          "parameters": {
+            "startX": 100,
+            "startY": 300,
+            "endX": 300,
+            "endY": 300,
+            "duration": 500
+          }
+        },
+        {
+          "block": "pinch",
+          "parameters": {
+            "centerX": 200,
+            "centerY": 200,
+            "scale": 1.5
+          }
+        }
+      ]
+    },
+    "networkTest": {
+      "name": "Network Interception Test",
+      "description": "Test network mocking and interception",
+      "workflow": [
+        {
+          "block": "mockResponse",
+          "parameters": {
+            "urlPattern": "**/api/users",
+            "response": {
+              "status": 200,
+              "body": { "users": [{ "id": 1, "name": "Test User" }] }
+            }
+          }
+        },
+        {
+          "block": "goto",
+          "parameters": { "url": "/users" }
+        },
+        {
+          "block": "waitForNetworkCall",
+          "parameters": {
+            "urlPattern": "**/api/users",
+            "method": "GET"
+          }
+        }
+      ]
+    },
+    "authTest": {
+      "name": "Authentication State Test",
+      "description": "Test auth state management",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/login" }
+        },
+        {
+          "block": "fill",
+          "parameters": {
+            "selector": "#username",
+            "value": "testuser"
+          }
+        },
+        {
+          "block": "fill",
+          "parameters": {
+            "selector": "#password",
+            "value": "testpass"
+          }
+        },
+        {
+          "block": "click",
+          "parameters": { "selector": "#login-button" }
+        },
+        {
+          "block": "saveAuthState",
+          "parameters": { "path": "./auth/user-session.json" }
+        }
+      ]
+    },
+    "advancedInputTest": {
+      "name": "Advanced Input Test",
+      "description": "Test advanced input methods",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/editor" }
+        },
+        {
+          "block": "selectText",
+          "parameters": {
+            "selector": "#text-editor",
+            "start": 0,
+            "end": 10
+          }
+        },
+        {
+          "block": "copyToClipboard",
+          "parameters": { "selector": "#text-editor" }
+        },
+        {
+          "block": "pressKeySequence",
+          "parameters": {
+            "keys": ["Control", "V"],
+            "delay": 100
+          }
+        },
+        {
+          "block": "mouseWheel",
+          "parameters": {
+            "deltaY": -100,
+            "x": 200,
+            "y": 300
+          }
+        }
+      ]
+    },
+    "pdfTest": {
+      "name": "PDF Generation Test",
+      "description": "Test PDF generation",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/report" }
+        },
+        {
+          "block": "setPrintOptions",
+          "parameters": {
+            "mediaType": "print",
+            "colorScheme": "light"
+          }
+        },
+        {
+          "block": "generatePDF",
+          "parameters": {
+            "path": "./reports/test-report.pdf",
+            "format": "A4",
+            "landscape": false
+          }
+        }
+      ]
+    },
+    "shadowDomTest": {
+      "name": "Shadow DOM Test",
+      "description": "Test shadow DOM interactions",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/shadow-dom-app" }
+        },
+        {
+          "block": "pierceSelector",
+          "parameters": {
+            "selector": "#shadow-button",
+            "action": "click"
+          }
+        },
+        {
+          "block": "shadowRoot",
+          "parameters": {
+            "hostSelector": "#shadow-host",
+            "shadowSelector": ".shadow-content",
+            "action": "getText"
+          }
+        }
+      ]
+    },
+    "webSocketTest": {
+      "name": "WebSocket Test",
+      "description": "Test WebSocket functionality",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": { "url": "/websocket-app" }
+        },
+        {
+          "block": "waitForWebSocket",
+          "parameters": {
+            "url": "ws://localhost:8080",
+            "timeout": 10000
+          }
+        },
+        {
+          "block": "sendWebSocketMessage",
+          "parameters": {
+            "message": "Hello WebSocket!",
+            "url": "ws://localhost:8080"
+          }
+        }
+      ]
+    },
+    "comprehensiveTest": {
+      "name": "Comprehensive Feature Test",
+      "description": "Test all new features together",
+      "workflow": [
+        {
+          "block": "callWorkflow",
+          "parameters": { "workflowId": "multiTabTest" }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": { "workflowId": "downloadTest" }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": { "workflowId": "mobileTest" }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": { "workflowId": "networkTest" }
+        },
+        {
+          "block": "callWorkflow",
+          "parameters": { "workflowId": "authTest" }
+        },
+        {
+          "block": "screenshot",
+          "parameters": {
+            "path": "screenshots/comprehensive-test-complete.png"
+          }
+        }
+      ]
+    }
+  },
+  "mainWorkflow": "comprehensiveTest"
+}

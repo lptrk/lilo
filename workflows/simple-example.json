@@ -1,0 +1,30 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "workflows": {
+    "main": {
+      "name": "Main Workflow",
+      "description": "Default workflow",
+      "workflow": [
+        {
+          "block": "goto",
+          "parameters": {
+            "url": "http://localhost:3000/"
+          }
+        },
+        {
+          "block": "click",
+          "parameters": {
+            "selector": "div.border-b:nth-child(2) > div:nth-child(1) > div:nth-child(2) > button:nth-child(1)"
+          }
+        },
+        {
+          "block": "expectVisible",
+          "parameters": {
+            "selector": "#radix-\\:Ra9amfj6\\:"
+          }
+        }
+      ]
+    }
+  },
+  "mainWorkflow": "main"
+}
