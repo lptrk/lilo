@@ -2,6 +2,10 @@
 
 A powerful TypeScript-based Playwright test automation runner - **both CLI tool and Library**.
 
+
+# ! OUTDATED !
+## To be updated soon
+
 ## 🎯 Dual Purpose
 
 ### 📦 **As Library** (for integration into other projects)
