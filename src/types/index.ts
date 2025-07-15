@@ -54,8 +54,9 @@ export interface TestResult {
   stepResults: StepResult[]
 }
 
-export interface TestRunnerOptions {
+export interface TestRunnerOptions{
   headless?: boolean
+  ignoreHTTPSErrors?: boolean
   browser?: string
   timeout?: number
   debug?: boolean

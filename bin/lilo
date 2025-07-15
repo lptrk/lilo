@@ -1,6 +1,23 @@
 #!/usr/bin/env node
 
-import('../dist/cli.js').catch(err => {
-  console.error('Failed to start lilo:', err);
+const path = require('path');
+const { spawn } = require('child_process');
+
+// Get the directory where this script is located
+const binDir = __dirname;
+// Go up one level to the package root, then into dist
+const cliPath = path.join(binDir, '..', 'dist', 'cli.js');
+
+// Spawn node with the CLI script and pass all arguments
+const child = spawn('node', [cliPath, ...process.argv.slice(2)], {
+  stdio: 'inherit'
+});
+
+child.on('exit', (code) => {
+  process.exit(code);
+});
+
+child.on('error', (err) => {
+  console.error('Failed to start Lilo:', err);
   process.exit(1);
 });
