@@ -2173,7 +2173,7 @@ export const testBlocks: TestBlockDefinition[] = [
 			},
 		],
 	},
-]
+] as const
 
 // Helper function to get blocks by category
 export function getBlocksByCategory(category: string): TestBlockDefinition[] {
