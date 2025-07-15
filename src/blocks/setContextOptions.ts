@@ -5,7 +5,7 @@ import type { BlockParameters } from "./index.js"
  * Sets browser context options
  */
 export async function setContextOptions(page: Page, parameters: BlockParameters = {}): Promise<void> {
-  const { viewport, userAgent, locale, timezone } = parameters
+  const {ignoreHTTPSErrors, viewport, userAgent, locale, timezone } = parameters
 
   try {
     console.log(`🌐 Setting context options`)

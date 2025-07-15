@@ -9,57 +9,148 @@
 import { TestRunner } from "./runner/TestRunner.js"
 import chalk from "chalk"
 import fs from "fs"
+import path from "path"
+import { fileURLToPath } from "url"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // CLI execution
 async function main(): Promise<void> {
-  const workflowPath = process.argv[2] || "./workflows/simple-example.json"
+	const args = process.argv.slice(2)
 
-  if (!fs.existsSync(workflowPath)) {
-    console.error(chalk.red(`❌ Workflow file not found: ${workflowPath}`))
+	// Show help
+	if (args.includes("--help") || args.includes("-h")) {
+		showHelp()
+		process.exit(0)
+	}
 
-    // Show available workflows
-    const workflowsDir = "./workflows"
-    if (fs.existsSync(workflowsDir)) {
-      const availableWorkflows = fs.readdirSync(workflowsDir).filter((f) => f.endsWith(".json"))
-      if (availableWorkflows.length > 0) {
-        console.log(chalk.yellow("\n📋 Available workflows:"))
-        availableWorkflows.forEach((workflow) => {
-          console.log(chalk.white(`  - ${workflowsDir}/${workflow}`))
-        })
-        console.log(chalk.gray("\nUsage: npm run test <workflow-file>"))
-      }
-    }
+	// Show version
+	if (args.includes("--version") || args.includes("-v")) {
+		showVersion()
+		process.exit(0)
+	}
 
-    process.exit(1)
-  }
+	const workflowPath = args.find((arg) => !arg.startsWith("--")) || "./workflows/simple-example.json"
 
-  const runner = new TestRunner()
+	// Parse CLI flags
+	const ignoreHTTPSErrors = args.includes("--ignore-https-errors")
+	const headless = !args.includes("--no-headless")
+	const debug = args.includes("--debug")
+	const timeoutArg = args.find((arg) => arg.startsWith("--timeout="))
+	const timeout = timeoutArg ? Number.parseInt(timeoutArg.split("=")[1]) : undefined
+	const browserArg = args.find((arg) => arg.startsWith("--browser="))
+	const browser = browserArg ? browserArg.split("=")[1] : undefined
 
-  try {
-    const result = await runner.runWorkflow(workflowPath)
+	if (!fs.existsSync(workflowPath)) {
+		console.error(chalk.red(`❌ Workflow file not found: ${workflowPath}`))
 
-    // Output final results
-    console.log("=== FINAL_RESULTS ===")
-    console.log(JSON.stringify(result.stepResults))
-    console.log("=== END_RESULTS ===")
+		// Show available workflows
+		const workflowsDir = "./workflows"
+		if (fs.existsSync(workflowsDir)) {
+			const availableWorkflows = fs.readdirSync(workflowsDir).filter((f) => f.endsWith(".json"))
+			if (availableWorkflows.length > 0) {
+				console.log(chalk.yellow("\n📋 Available workflows:"))
+				availableWorkflows.forEach((workflow) => {
+					console.log(chalk.white(`  - ${workflowsDir}/${workflow}`))
+				})
+				console.log(chalk.gray("\nUsage: lilo <workflow-file> [options]"))
+				console.log(chalk.gray("Run 'lilo --help' for more information"))
+			}
+		}
 
-    if (result.success) {
-      console.log("✅ TESTS PASSED")
-      process.exit(0)
-    } else {
-      console.log("❌ TESTS FAILED")
-      console.error("Error:", result.error)
-      process.exit(1)
-    }
-  } catch (error) {
-    console.error("❌ CLI Error:", error)
-    process.exit(1)
-  } finally {
-    await runner.cleanup()
-  }
+		process.exit(1)
+	}
+
+	const runner = new TestRunner({
+		headless,
+		ignoreHTTPSErrors,
+		debug,
+		timeout,
+		browser,
+	})
+
+	try {
+		console.log(chalk.blue("🚀 Starting Lilo Test Runner..."))
+		console.log(chalk.gray(`📁 Workflow: ${workflowPath}`))
+		console.log(chalk.gray(`🌐 Browser: ${browser || "chromium"}`))
+		console.log(chalk.gray(`👁️  Headless: ${headless}`))
+		console.log(chalk.gray(`🔒 Ignore HTTPS Errors: ${ignoreHTTPSErrors}`))
+		console.log(chalk.gray(`🐛 Debug: ${debug}`))
+		console.log(chalk.gray(`⏱️  Timeout: ${timeout || 30000}ms`))
+		console.log("")
+
+		const result = await runner.runWorkflow(workflowPath)
+
+		// Output final results
+		console.log("\n=== FINAL_RESULTS ===")
+		console.log(JSON.stringify(result.stepResults, null, 2))
+		console.log("=== END_RESULTS ===")
+
+		if (result.success) {
+			console.log(chalk.green("\n✅ TESTS PASSED"))
+			console.log(chalk.gray(`⏱️  Duration: ${result.duration}ms`))
+			console.log(chalk.gray(`📊 Steps: ${result.stepResults.length}`))
+			process.exit(0)
+		} else {
+			console.log(chalk.red("\n❌ TESTS FAILED"))
+			console.error(chalk.red("Error:"), result.error)
+			console.log(chalk.gray(`⏱️  Duration: ${result.duration}ms`))
+			console.log(chalk.gray(`📊 Steps: ${result.stepResults.length}`))
+			process.exit(1)
+		}
+	} catch (error) {
+		console.error(chalk.red("❌ CLI Error:"), error)
+		process.exit(1)
+	} finally {
+		await runner.cleanup()
+	}
 }
 
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
-  main()
+function showHelp(): void {
+	console.log(chalk.blue("🎭 Lilo - Playwright Test Runner"))
+	console.log("")
+	console.log(chalk.white("USAGE:"))
+	console.log("  lilo <workflow-file> [options]")
+	console.log("")
+	console.log(chalk.white("OPTIONS:"))
+	console.log("  --help, -h              Show this help message")
+	console.log("  --version, -v           Show version information")
+	console.log("  --no-headless           Run browser in headed mode")
+	console.log("  --ignore-https-errors   Ignore HTTPS certificate errors")
+	console.log("  --debug                 Enable debug mode with verbose logging")
+	console.log("  --timeout=<ms>          Set timeout in milliseconds (default: 30000)")
+	console.log("  --browser=<name>        Set browser (chromium, firefox, webkit)")
+	console.log("")
+	console.log(chalk.white("EXAMPLES:"))
+	console.log("  lilo workflow.json")
+	console.log("  lilo workflow.json --no-headless --debug")
+	console.log("  lilo workflow.json --ignore-https-errors --timeout=60000")
+	console.log("  lilo workflow.json --browser=firefox")
+	console.log("")
+	console.log(chalk.white("ENVIRONMENT VARIABLES:"))
+	console.log("  HEADLESS=false          Same as --no-headless")
+	console.log("  DEBUG=true              Same as --debug")
+	console.log("  IGNORE_HTTPS_ERRORS=true Same as --ignore-https-errors")
 }
+
+function showVersion(): void {
+	try {
+		// Try to find package.json from the project root
+		const packageJsonPath = path.resolve(__dirname, "../package.json")
+		if (fs.existsSync(packageJsonPath)) {
+			const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"))
+			console.log(chalk.blue(`Lilo v${packageJson.version}`))
+		} else {
+			console.log(chalk.blue("Lilo v0.1.4"))
+		}
+	} catch {
+		console.log(chalk.blue("Lilo v0.1.4"))
+	}
+}
+
+// Auto-execute when this module is run directly
+main().catch((error) => {
+	console.error(chalk.red("❌ Fatal Error:"), error)
+	process.exit(1)
+})
