@@ -1,4 +1,4 @@
-# Lilo
+# Stitch-runner
 
 A powerful TypeScript-based Playwright test automation runner - **both CLI tool and Library**.
 
@@ -10,11 +10,11 @@ A powerful TypeScript-based Playwright test automation runner - **both CLI tool 
 
 ### 📦 **As Library** (for integration into other projects)
 ```bash
-  npm install lilo
+  npm install stitch-runner
 ```
 
 ```typescript
-import { TestRunner, runWorkflow, type WorkflowConfig } from 'lilo'
+import { TestRunner, runWorkflow, type WorkflowConfig } from 'stitch-runner'
 
 // Quick usage
 const result = await runWorkflow('./workflow.json')
@@ -35,19 +35,19 @@ await runner.cleanup()
 ```bash
 
 # Install globally
-npm install -g lilo
+npm install -g stitch-runner
 
 # Run workflows
-lilo ./workflow.json
-HEADLESS=false lilo ./workflow.json
-DEBUG=true lilo ./workflow.json
+stitch-runner ./workflow.json
+HEADLESS=false stitch-runner ./workflow.json
+DEBUG=true stitch-runner ./workflow.json
 ```
 
 ## 🚀 Quick Start
 
 ### Library Usage
 ```typescript
-import { runWorkflow } from 'lilo'
+import { runWorkflow } from 'stitch-runner'
 
 const workflowConfig = {
   baseUrl: "https://example.com",
@@ -86,16 +86,16 @@ echo '{
 }' > workflow.json
 
 # Run it
-lilo workflow.json
+stitch-runner workflow.json
 ```
 
 ## 📋 Available Commands
 
 ### CLI Commands
 ```bash
-lilo <workflow.json>              # Run workflow
-HEADLESS=false lilo <workflow>    # Visible browser
-DEBUG=true lilo <workflow>        # Debug mode
+stitch-runner <workflow.json>              # Run workflow
+HEADLESS=false stitch-runner <workflow>    # Visible browser
+DEBUG=true stitch-runner <workflow>        # Debug mode
 ```
 
 ### Library API
@@ -130,7 +130,7 @@ new TestRunner(options)
 ### React/Next.js
 ```typescript
 import { useEffect, useState } from 'react'
-import { runWorkflow } from 'lilo'
+import { runWorkflow } from 'stitch-runner'
 
 function TestRunner({ workflowConfig }) {
   const [result, setResult] = useState(null)
@@ -149,7 +149,7 @@ function TestRunner({ workflowConfig }) {
 
 ### Node.js Script
 ```typescript
-import { TestRunner } from 'lilo'
+import { TestRunner } from 'stitch-runner'
 
 const runner = new TestRunner({
   onStepComplete: (step) => {
@@ -167,8 +167,8 @@ await runner.cleanup()
 ```yaml
 - name: Run E2E Tests
   run: |
-    npm install lilo
-    lilo ./workflows/production-tests.json
+    npm install stitch-runner
+    stitch-runner ./workflows/production-tests.json
 ```
 
 ## 📊 Perfect for

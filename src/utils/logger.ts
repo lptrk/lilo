@@ -1,5 +1,5 @@
 /**
- * Logging utility class for the Lilo test runner with colored console output.
+ * Logging utility class for the Stitch test runner with colored console output.
  * Provides different log levels (info, success, error, warning, debug) with emoji indicators.
  * Supports debug mode for detailed troubleshooting and step-by-step execution tracking.
  * Uses chalk library for colored terminal output to improve readability.

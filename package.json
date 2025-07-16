@@ -1,6 +1,6 @@
 {
-  "name": "lilo-e2e-runner",
-  "version": "0.1.4",
+  "name": "stitch-runner",
+  "version": "0.1.5",
   "description": "A flexible Playwright-based test runner for end-to-end testing with workflow support",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     }
   },
   "bin": {
-    "lilo": "./bin/lilo"
+    "runner": "./bin/stitch-runner"
   },
   "scripts": {
     "build": "tsc",
@@ -28,8 +28,8 @@
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build",
-    "postbuild": "chmod +x bin/lilo",
-    "lilo": "./bin/lilo"
+    "postbuild": "chmod +x bin/stitch-runner",
+    "runner": "bin/stitch-runner"
   },
   "keywords": ["playwright", "testing", "e2e", "automation", "workflow", "test-runner"],
   "author": "lptrk",

@@ -1,8 +1,8 @@
 /**
- * Main library exports for programmatic usage of Lilo Playwright Test Runner.
- * This file provides the primary API for using Lilo as a library in other projects.
+ * Main library exports for programmatic usage of Stitch Playwright Test Runner.
+ * This file provides the primary API for using Stitch as a library in other projects.
  * Exports include TestRunner class, block registry, logger, types, and factory functions.
- * Use this for integrating Lilo into custom test management tools or CI/CD pipelines.
+ * Use this for integrating Stitch into custom test management tools or CI/CD pipelines.
  * Supports both one-shot executions and advanced runner configurations with callbacks.
  */
 

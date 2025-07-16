@@ -1,5 +1,5 @@
 /**
- * Command-line interface for the Lilo Playwright Test Runner.
+ * Command-line interface for the Stitch Playwright Test Runner.
  * Handles CLI argument parsing, workflow file validation, and result output formatting.
  * Provides user-friendly error messages and lists available workflows when files aren't found.
  * Supports environment variable configuration for headless mode and debugging.
@@ -54,8 +54,8 @@ async function main(): Promise<void> {
 				availableWorkflows.forEach((workflow) => {
 					console.log(chalk.white(`  - ${workflowsDir}/${workflow}`))
 				})
-				console.log(chalk.gray("\nUsage: lilo <workflow-file> [options]"))
-				console.log(chalk.gray("Run 'lilo --help' for more information"))
+				console.log(chalk.gray("\nUsage: stitch-runner <workflow-file> [options]"))
+				console.log(chalk.gray("Run 'stitch-runner --help' for more information"))
 			}
 		}
 
@@ -71,7 +71,7 @@ async function main(): Promise<void> {
 	})
 
 	try {
-		console.log(chalk.blue("🚀 Starting Lilo Test Runner..."))
+		console.log(chalk.blue("🚀 Starting Stitch Test Runner..."))
 		console.log(chalk.gray(`📁 Workflow: ${workflowPath}`))
 		console.log(chalk.gray(`🌐 Browser: ${browser || "chromium"}`))
 		console.log(chalk.gray(`👁️  Headless: ${headless}`))
@@ -108,10 +108,10 @@ async function main(): Promise<void> {
 }
 
 function showHelp(): void {
-	console.log(chalk.blue("🎭 Lilo - Playwright Test Runner"))
+	console.log(chalk.blue("🎭 Stitch - Playwright Test Runner"))
 	console.log("")
 	console.log(chalk.white("USAGE:"))
-	console.log("  lilo <workflow-file> [options]")
+	console.log("  stitch-runner <workflow-file> [options]")
 	console.log("")
 	console.log(chalk.white("OPTIONS:"))
 	console.log("  --help, -h              Show this help message")
@@ -123,10 +123,10 @@ function showHelp(): void {
 	console.log("  --browser=<name>        Set browser (chromium, firefox, webkit)")
 	console.log("")
 	console.log(chalk.white("EXAMPLES:"))
-	console.log("  lilo workflow.json")
-	console.log("  lilo workflow.json --no-headless --debug")
-	console.log("  lilo workflow.json --ignore-https-errors --timeout=60000")
-	console.log("  lilo workflow.json --browser=firefox")
+	console.log("  stitch-runner workflow.json")
+	console.log("  stitch-runner workflow.json --no-headless --debug")
+	console.log("  stitch-runner workflow.json --ignore-https-errors --timeout=60000")
+	console.log("  stitch-runner workflow.json --browser=firefox")
 	console.log("")
 	console.log(chalk.white("ENVIRONMENT VARIABLES:"))
 	console.log("  HEADLESS=false          Same as --no-headless")
@@ -140,12 +140,12 @@ function showVersion(): void {
 		const packageJsonPath = path.resolve(__dirname, "../package.json")
 		if (fs.existsSync(packageJsonPath)) {
 			const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"))
-			console.log(chalk.blue(`Lilo v${packageJson.version}`))
+			console.log(chalk.blue(`Stitch v${packageJson.version}`))
 		} else {
-			console.log(chalk.blue("Lilo v0.1.4"))
+			console.log(chalk.blue("Stitch v0.1.4"))
 		}
 	} catch {
-		console.log(chalk.blue("Lilo v0.1.4"))
+		console.log(chalk.blue("Stitch v0.1.4"))
 	}
 }
 

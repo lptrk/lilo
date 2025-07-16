@@ -1,5 +1,5 @@
 /**
- * TypeScript type definitions for the Lilo Playwright Test Runner.
+ * TypeScript type definitions for the Stitch Playwright Test Runner.
  * Defines interfaces and types used throughout the application including workflow configurations,
  * test results, runner options, and block function signatures.
  * These types ensure type safety and provide IntelliSense support for developers.

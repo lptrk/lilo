@@ -1,5 +1,5 @@
 /**
- * Vollständige Definition aller verfügbaren Lilo Test Blocks
+ * Vollständige Definition aller verfügbaren Stitch Test Blocks
  * Organisiert nach Kategorien mit Icons, Farben und Parametern
  */
 
